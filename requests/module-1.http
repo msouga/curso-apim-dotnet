@@ -1,0 +1,8 @@
+### PRUEBA 1: Llamada sin clave de suscripción (FALLARÁ)
+# @name SinClave
+GET https://apim-curso-msouga-29804.azure-api.net/productos/api/products
+
+### PRUEBA 2: Llamada CON clave de suscripción (FUNCIONARÁ)
+# @name ConClave
+GET https://apim-curso-msouga-29804.azure-api.net/productos/api/products
+Ocp-Apim-Subscription-Key: {{subscriptionKey}}

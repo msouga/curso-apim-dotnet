@@ -11,49 +11,35 @@ Aunque es probable que ya tengas todo instalado, por favor, sigue estos pasos pa
 
 ### 1. Entorno de Trabajo (WSL2 + Ubuntu)
 
-Es el sistema operativo base donde ejecutaremos todos nuestros comandos y nuestra API.
-
 *   **Verificación:** Abre tu terminal de Ubuntu y comprueba la versión del sistema operativo.
-
+    
     ```bash
     cat /etc/os-release
     ```
-    *Deberías ver una salida que confirme que estás usando una versión de Ubuntu (ej. 22.04 LTS).*
 
 ### 2. SDK de .NET 8
 
-Es el framework que usaremos para compilar y ejecutar nuestra API de ejemplo.
-
-*   **Verificación:** Ejecuta el siguiente comando para confirmar que tienes .NET 8 instalado.
+*   **Verificación:** Confirma que tienes .NET 8 instalado.
     
     ```bash
     dotnet --version
     ```
-    *La salida debe ser `8.0.x` o superior.*
-
 *   **En caso de no tenerlo:** [Instrucciones de instalación de .NET para Ubuntu](https://learn.microsoft.com/es-es/dotnet/core/install/linux-ubuntu)
 
 ### 3. Azure CLI
-
-La Interfaz de Línea de Comandos de Azure es nuestra herramienta principal para interactuar con los recursos en la nube, incluyendo Azure API Management.
 
 *   **Verificación:** Comprueba la versión instalada.
     
     ```bash
     az --version
     ```
-    *Esto mostrará la versión de la CLI, que debería ser reciente.*
-
 *   **Acción Requerida:** Asegúrate de haber iniciado sesión en tu cuenta de Azure.
     
     ```bash
     az login
     ```
-    *Este comando abrirá un navegador para que te autentiques. Una vez completado, cierra la pestaña y vuelve a la terminal.*
 
 ### 4. Git
-
-Es la herramienta que usamos para el control de versiones y para clonar el repositorio del curso.
 
 *   **Verificación:** Comprueba que Git está instalado.
     
@@ -61,25 +47,65 @@ Es la herramienta que usamos para el control de versiones y para clonar el repos
     git --version
     ```
 
+### 5. Ngrok: Túnel a Internet
+
+Para que Azure API Management (en la nube) pueda comunicarse con nuestra API (en nuestra máquina local), necesitamos un túnel seguro. Usaremos `ngrok`.
+
+**A. Instalación en Ubuntu/WSL:**
+
+```bash
+# Añade el repositorio de ngrok y su clave de seguridad
+curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | \
+  sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && \
+  echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | \
+  sudo tee /etc/apt/sources.list.d/ngrok.list
+
+# Actualiza la lista de paquetes e instala ngrok
+sudo apt update && sudo apt install ngrok
+```
+
+**B. Creación de Cuenta y Autenticación:**
+
+1.  **Crea una cuenta:** Ve a [https://dashboard.ngrok.com/signup](https://dashboard.ngrok.com/signup) (puedes usar tu cuenta de GitHub o Google).
+2.  **Copia tu Authtoken:** En la sección "Getting Started" -> "Your Authtoken", copia el comando de autenticación.
+3.  **Ejecuta el Comando:** Pega el comando en tu terminal de Ubuntu.
+
+    ```bash
+    ngrok config add-authtoken TU_TOKEN_PERSONAL_AQUI
+    ```
+
+**C. Crear y Obtener tu Dominio Estático Fijo:**
+El plan gratuito de `ngrok` te asigna un dominio estático y permanente. Sigue estos pasos para encontrarlo:
+
+1.  **Navega:** En el dashboard de `ngrok`, ve a la sección del menú izquierdo **Universal Gateway** -> **Domains**.
+2.  **Inicia la Creación:** Verás una página explicando la funcionalidad. Haz clic en el botón azul **`+ Create Domain`**.
+3.  **Encuentra tu Dominio:** Aparecerá una ventana emergente (pop-up). Puede que muestre un mensaje pidiendo que actualices tu plan. **Puedes ignorar ese mensaje.** Dentro de esa misma ventana, `ngrok` te mostrará el dominio estático que ha sido asignado a tu cuenta. Será un nombre como `organic-swine-eminent.ngrok-free.app`.
+4.  **Anótalo:** **Copia este dominio completo y guárdalo.** Lo necesitarás en el laboratorio del Día 1. Ya puedes cerrar la ventana emergente.
+
+**D. Verificación:**
+Confirma que la instalación fue exitosa.
+
+```bash
+ngrok --version
+```
+
 
 ## Editor de Código: Visual Studio Code
 
-Usaremos Visual Studio Code como nuestro editor principal debido a su excelente integración con WSL y su potente ecosistema de extensiones.
+Usaremos Visual Studio Code como nuestro editor principal.
 
 ### Extensiones Esenciales
+Asegúrate de tener instaladas las siguientes extensiones:
 
-Asegúrate de tener instaladas las siguientes extensiones en VS Code. Son clave para el flujo de trabajo del curso.
+*   [**WSL (de Microsoft)**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+*   [**C# (de Microsoft)**](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+*   [**REST Client (de Huachao Mao)**](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
-*   [**WSL (de Microsoft)**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl): **¡CRÍTICA!** Permite que VS Code en Windows se conecte y trabaje directamente sobre tu sistema de archivos de Ubuntu. Cuando abres el proyecto, VS Code debe mostrar "WSL: Ubuntu" en la esquina inferior izquierda.
-
-*   [**C# (de Microsoft)**](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp): Proporciona resaltado de sintaxis, IntelliSense, y capacidades de depuración para nuestro proyecto de ASP.NET Core.
-
-*   [**REST Client (de Huachao Mao)**](https://marketplace.visualstudio.com/items?itemName=humao.rest-client): Nos permitirá ejecutar las pruebas de API directamente desde archivos `.http` que están versionados en el repositorio, manteniendo todo dentro del mismo editor.
-
+---
 
 ## Verificación Final
 
-Si has podido ejecutar todos los comandos de verificación con éxito y tienes las extensiones de VS Code instaladas, **¡estás listo para empezar!**
+Si has podido ejecutar todos los comandos de verificación con éxito, **¡estás listo para empezar!**
 
 El siguiente paso es clonar el repositorio del curso si aún no lo has hecho:
 

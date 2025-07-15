@@ -1,0 +1,12 @@
+{
+    "rest-client.environmentVariables": {
+        // El entorno "$shared" es para variables comunes a todos los entornos.
+        // Lo dejamos vacío por ahora.
+        "$shared": {},
+
+        // Nuestro entorno de desarrollo para el curso.
+        "dev": {
+            "subscriptionKey": "9c7a2a5d4b3c40ab8a3b95f28c612fdc"
+        }
+    }
+}
