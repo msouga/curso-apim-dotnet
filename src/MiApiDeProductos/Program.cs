@@ -13,19 +13,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// --- Definición del Modelo y Datos para el Curso ---
-public record Product(int Id, string Name, double Price, int Stock);
 
-public static class ProductRepository
-{
-    public static List<Product> Products { get; } = new List<Product>
-    {
-        new(1, "Laptop Gamer Pro", 2100.50, 15),
-        new(2, "Teclado Mecánico RGB", 120.00, 50),
-        new(3, "Monitor Curvo 34\"", 899.99, 10),
-        new(4, "Webcam 4K con Aro de Luz", 150.75, 30)
-    };
-}
 // ----------------------------------------------------
 
 // --- Endpoints de la API para el Curso ---
@@ -43,3 +31,17 @@ app.MapGet("/api/products", () =>
 // ---------------------------
 
 app.Run();
+
+// --- Definición del Modelo y Datos para el Curso ---
+public record Product(int Id, string Name, double Price, int Stock);
+
+public static class ProductRepository
+{
+    public static List<Product> Products { get; } = new List<Product>
+    {
+        new(1, "Laptop Gamer Pro", 2100.50, 15),
+        new(2, "Teclado Mecánico RGB", 120.00, 50),
+        new(3, "Monitor Curvo 34\"", 899.99, 10),
+        new(4, "Webcam 4K con Aro de Luz", 150.75, 30)
+    };
+}
