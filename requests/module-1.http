@@ -6,3 +6,5 @@ GET https://apim-curso-msouga-29804.azure-api.net/productos/api/products
 # @name ConClave
 GET https://apim-curso-msouga-29804.azure-api.net/productos/api/products
 Ocp-Apim-Subscription-Key: {{subscriptionKey}}
+
+

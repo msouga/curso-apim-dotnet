@@ -6,6 +6,7 @@
 
         // Nuestro entorno de desarrollo para el curso.
         "dev": {
+            "APIM_NAME": "apim-curso-msouga-29804",
             "subscriptionKey": "9c7a2a5d4b3c40ab8a3b95f28c612fdc"
         }
     }
