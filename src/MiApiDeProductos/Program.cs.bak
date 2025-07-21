@@ -26,6 +26,17 @@ app.MapGet("/api/products", () =>
 .WithDescription("Obtiene la lista completa de productos.")
 .WithOpenApi();
 
+app.MapGet("/api/products/{id}", (int id) => {
+    var product = ProductRepository.Products.FirstOrDefault(p => p.Id == id);
+    return product is not null ? Results.Ok(product) : Results.NotFound();
+}).WithName("GetProductById").WithOpenApi();
+
+// Aquí añadiremos más endpoints durante el curso...
+app.MapGet("/api/inventory/product/{id}/movements", (int id) => {
+    var movements = InventoryRepository.Movements.Where(m => m.ProductId == id);
+    return Results.Ok(movements);
+}).WithName("GetInventoryMovements").WithOpenApi();
+
 // ---------------------------
 
 app.Run();
@@ -42,4 +53,11 @@ public static class ProductRepository
         new(3, "Monitor Curvo 34\"", 899.99, 10),
         new(4, "Webcam 4K con Aro de Luz", 150.75, 30)
     };
+}
+
+public record InventoryMovement(int ProductId, DateTime Timestamp, string Type, int Quantity);
+public static class InventoryRepository
+{
+    public static List<InventoryMovement> Movements { get; } = new List<InventoryMovement>
+    { new(1, DateTime.UtcNow.AddDays(-10), "Restock", 5), new(1, DateTime.UtcNow.AddDays(-8), "Sale", -1), new(1, DateTime.UtcNow.AddDays(-5), "Sale", -1), new(2, DateTime.UtcNow.AddDays(-15), "Restock", 20), new(2, DateTime.UtcNow.AddDays(-12), "Sale", -5), new(3, DateTime.UtcNow.AddDays(-20), "Restock", 10) };
 }

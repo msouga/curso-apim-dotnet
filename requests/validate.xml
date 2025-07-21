@@ -1,0 +1,18 @@
+<validate-jwt header-name="Authorization">
+    <!-- 1. Verificación de firma -->
+    <openid-config url="https://login.microsoftonline.com/TENANT_ID/v2.0/.well-known/openid-configuration"/>
+    <!-- 2. Audiencia objetivo -->
+    <audiences>
+        <audience>api://CLIENT_ID_DE_MI_API</audience>
+    </audiences>
+    <!-- 3. Emisor autorizado -->
+    <issuers>
+        <issuer>https://sts.windows.net/TENANT_ID/</issuer>
+    </issuers>
+    <!-- 4. Permisos requeridos -->
+    <required-claims>
+        <claim name="scp" match="any">
+            <value>Productos.Leer</value>
+        </claim>
+    </required-claims>
+</validate-jwt>
